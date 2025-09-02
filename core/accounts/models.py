@@ -32,7 +32,7 @@ class UserManager(BaseUserManager):
         if extra_fields.get('is_staff') is not True:
             raise ValueError(_("Superuser must have is_staff=True"))
         if extra_fields.get('is_superuser') is not True:
-            raise ValueError(_("Superuser must have is_staff=True"))
+            raise ValueError(_("Superuser must have is_superuser=True"))
         return self.create_user(email, password, **extra_fields)
 
 
@@ -47,10 +47,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     # is_verified = models.BooleanField(default=False)
     first_name = models.CharField(max_length=20)
     
+    USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
-    
+    objects = UserManager()
     def __str__(self):
         return self.email

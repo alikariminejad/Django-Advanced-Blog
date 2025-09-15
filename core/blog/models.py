@@ -1,4 +1,8 @@
 from django.db import models
+from django.contrib.auth import get_user_model
+
+# Getting user model object
+User = get_user_model()
 
 class Post(models.Model):
     """
@@ -22,4 +26,4 @@ class Category(models.Model):
     name = models.CharField(max_length=250)
     
     def __str__(self):
-        self.name
+        return self.name

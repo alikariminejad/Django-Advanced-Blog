@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView, FormView, CreateView, Upd
 from .models import Post
 from django.shortcuts import get_object_or_404
 from .forms import PostForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # a function based view to show index page
 """
@@ -38,7 +39,7 @@ class RedirectToMaktab(RedirectView):
         print("post: ", post)
         return super().get_redirect_url(*args, **kwargs)
     
-class PostList(ListView):
+class PostList(LoginRequiredMixin,ListView):
     # different ways to get objects
     # 1 
     model = Post
@@ -55,7 +56,7 @@ class PostList(ListView):
     #     return posts
     
 
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin,DetailView):
     model = Post
     
 """
@@ -69,7 +70,7 @@ class PostCreateView(FormView):
         return super().form_valid(form)
 """
 
-class PostCreateView(CreateView):
+class PostCreateView(LoginRequiredMixin,CreateView):
     model = Post
     # you can either use fields or form class
     # fields = ['author', 'title', 'content', 'status', 'category', 'published_date', ]
@@ -81,11 +82,11 @@ class PostCreateView(CreateView):
         return super().form_valid(form)
     
     
-class PostEditView(UpdateView):
+class PostEditView(LoginRequiredMixin,UpdateView):
     model = Post
     form_class = PostForm
     success_url = '/blog/post/'
     
-class PostDeleteView(DeleteView):
+class PostDeleteView(LoginRequiredMixin,DeleteView):
     model = Post
     success_url = '/blog/post/'

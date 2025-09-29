@@ -1,6 +1,6 @@
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework.response import Response
 from .serializers import PostSerializer
 from ...models import Post
@@ -23,6 +23,9 @@ def postList(request):
     
 class PostList(APIView):
     """getting a list of posts and creating new posts"""
+    permission_classes = [IsAuthenticated]
+    serializer_class = PostSerializer
+    
     def get(self,request):
         """retrieving a list of posts"""
         posts = Post.objects.filter(status=True)  

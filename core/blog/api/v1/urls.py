@@ -4,7 +4,8 @@ from rest_framework.routers import DefaultRouter
 
 app_name = 'api-v1'
 router = DefaultRouter()
-router.register('post', views.PostViewSet, 'post')
+router.register('post', views.PostModelViewSet, 'post')
+router.register('category', views.CategoryModelViewSet, 'category')
 
 urlpatterns = router.urls
 

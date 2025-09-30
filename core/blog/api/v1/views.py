@@ -2,8 +2,8 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework.response import Response
-from .serializers import PostSerializer
-from ...models import Post
+from .serializers import PostSerializer, CategorySerializer
+from ...models import Post, Category
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
@@ -99,24 +99,14 @@ class PostDetail(RetrieveUpdateDestroyAPIView):
     queryset = Post.objects.filter(status=True)
 
 # Example for Viewset in CBV
-class PostViewSet(viewsets.ViewSet):
+class PostModelViewSet(viewsets.ModelViewSet):
     """getting a list of posts and creating new posts"""
     permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = PostSerializer
     queryset = Post.objects.filter(status=True)
 
-    def list(self, request):
-        serializer = self.serializer_class(self.queryset, many=True)
-        return Response(serializer.data)
-    def retrieve(self, request, pk=None):
-        post_object = get_object_or_404(self.queryset, pk=pk)
-        serializer = self.serializer_class(post_object)
-        return Response(serializer.data)
-    def create(self, request):
-        pass
-    def update(self, request, pk=None):
-        pass
-    def partial_update(self, request, pk=None):
-        pass
-    def destroy(self, request, pk=None):
-        pass
+class CategoryModelViewSet(viewsets.ModelViewSet):
+    """getting a list of categories and creating new categories"""
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    serializer_class = CategorySerializer
+    queryset = Category.objects.all()

@@ -8,10 +8,15 @@ from ...models import Post, Category
 #     title = serializers.CharField(max_length=255)
 class PostSerializer(serializers.ModelSerializer):
     snippet = serializers.ReadOnlyField(source='get_snippet')
-    relative_path = serializers.URLField(source='get_absolute_url', read_only=True)
+    relative_path = serializers.URLField(source='get_absolute_api_url', read_only=True)
+    absolute_url = serializers.SerializerMethodField(method_name='get_absolute_url')
     class Meta:
         model = Post
-        fields = ["id", "title", "author", "content", "snippet", "status", "relative_path","created_date", "published_date"]
+        fields = ["id", "title", "author", "content", "snippet", "status", "relative_path", "absolute_url","created_date", "published_date"]
+
+    def get_absolute_url(self, obj):
+        request = self.context.get("request")
+        return request.build_absolute_uri(obj.pk)
 
 
 class CategorySerializer(serializers.ModelSerializer):

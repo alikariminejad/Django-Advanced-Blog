@@ -27,7 +27,7 @@ class Post(models.Model):
     def get_snippet(self):
         return self.content[0:5]
 
-    def get_absolute_url(self):
+    def get_absolute_api_url(self):
         return reverse("blog:api-v1:post-detail", kwargs={"pk": self.pk})
     
 class Category(models.Model):

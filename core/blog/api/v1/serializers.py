@@ -7,9 +7,11 @@ from ...models import Post, Category
 #     id = serializers.IntegerField()
 #     title = serializers.CharField(max_length=255)
 class PostSerializer(serializers.ModelSerializer):
+    snippet = serializers.ReadOnlyField(source='get_snippet')
+    relative_path = serializers.URLField(source='get_absolute_url', read_only=True)
     class Meta:
         model = Post
-        fields = ["id", "title", "author", "content", "status","created_date", "published_date"]
+        fields = ["id", "title", "author", "content", "snippet", "status", "relative_path","created_date", "published_date"]
 
 
 class CategorySerializer(serializers.ModelSerializer):

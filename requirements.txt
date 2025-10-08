@@ -3,6 +3,8 @@ django >3.2,<3.3
 python-decouple
 Pillow
 djangorestframework
+djangorestframework-simplejwt
+coreapi
 
 
 # third party modules

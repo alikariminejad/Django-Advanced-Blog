@@ -13,6 +13,7 @@ from django.contrib.auth import get_user_model
 from ...models import Profile
 from mail_templated import EmailMessage
 from ..utils import EmailThread
+from rest_framework_simplejwt.tokens import RefreshToken
 
 User = get_user_model()
 
@@ -85,6 +86,13 @@ class ProfileApiView(generics.RetrieveUpdateAPIView):
     
 class TestEmailSend(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
-        email_obj = EmailMessage('email/hello.tpl', {'name':'ali'}, 'admin@admin.com', to={'kariminejad.ali.ak@gmail.com'})
+        self.email = "ali@test.com"
+        user_obj = get_object_or_404(User, email=self.email)
+        token = self.get_tokens_for_user(user_obj)
+        email_obj = EmailMessage('email/hello.tpl', {'token':token}, 'admin@admin.com', to={self.email})
         EmailThread(email_obj).start()
         return Response("Email sent")
+
+    def get_tokens_for_user(self,user):
+        refresh = RefreshToken.for_user(user)
+        return str(refresh.access_token)

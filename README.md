@@ -24,3 +24,8 @@ for using black reformatter:
 ```
 docker-compose exec backend sh -c "black ."
 ```
+
+for using flake8
+```
+docker-compose exec backend sh -c "flake8 ."
+```

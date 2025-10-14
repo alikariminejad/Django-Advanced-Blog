@@ -2,10 +2,10 @@ from django.urls import path, include
 from . import views
 from rest_framework.routers import DefaultRouter
 
-app_name = 'api-v1'
+app_name = "api-v1"
 router = DefaultRouter()
-router.register('post', views.PostModelViewSet, 'post')
-router.register('category', views.CategoryModelViewSet, 'category')
+router.register("post", views.PostModelViewSet, "post")
+router.register("category", views.CategoryModelViewSet, "category")
 
 urlpatterns = router.urls
 

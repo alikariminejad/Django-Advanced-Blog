@@ -25,8 +25,8 @@ def postList(request):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)"""
-    
-    
+
+
 '''class PostList(APIView):
     """getting a list of posts and creating new posts"""
     permission_classes = [IsAuthenticated]
@@ -45,14 +45,16 @@ def postList(request):
           serializer.save()
           return Response(serializer.data)'''
 
+
 class PostList(ListCreateAPIView):
     """getting a list of posts and creating new posts"""
+
     permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = PostSerializer
     queryset = Post.objects.filter(status=True)
 
 
-'''@api_view(['GET', 'PUT', 'DELETE'])
+"""@api_view(['GET', 'PUT', 'DELETE'])
 @permission_classes([IsAuthenticatedOrReadOnly])
 def postDetail(request, id):
     # try:
@@ -72,7 +74,7 @@ def postDetail(request, id):
         return Response(serializer.data)
     elif request.method == "DELETE":
         post.delete()
-        return Response({"Detail":"Item removed successfully."}, status=status.HTTP_204_NO_CONTENT)'''
+        return Response({"Detail":"Item removed successfully."}, status=status.HTTP_204_NO_CONTENT)"""
 
 '''class PostDetail(APIView):
     """ getting detail of the post and edit plus removing it"""
@@ -96,26 +98,36 @@ def postDetail(request, id):
         post.delete()
         return Response({"Detail":"Item removed successfully."}, status=status.HTTP_204_NO_CONTENT)'''
 
+
 class PostDetail(RetrieveUpdateDestroyAPIView):
     """getting detail of the post and edit plus removing it"""
+
     permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = PostSerializer
     queryset = Post.objects.filter(status=True)
 
+
 # Example for Viewset in CBV
 class PostModelViewSet(viewsets.ModelViewSet):
     """getting a list of posts and creating new posts"""
+
     permission_classes = [IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
     serializer_class = PostSerializer
     queryset = Post.objects.filter(status=True)
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    filterset_fields = {'category':['exact', 'in'], 'author':['exact'], 'status':['exact']}
-    search_fields = ['title', 'content']
-    ordering_fields = ['published_date']
+    filterset_fields = {
+        "category": ["exact", "in"],
+        "author": ["exact"],
+        "status": ["exact"],
+    }
+    search_fields = ["title", "content"]
+    ordering_fields = ["published_date"]
     pagination_class = DefaultPagination
+
 
 class CategoryModelViewSet(viewsets.ModelViewSet):
     """getting a list of categories and creating new categories"""
+
     permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = CategorySerializer
     queryset = Category.objects.all()

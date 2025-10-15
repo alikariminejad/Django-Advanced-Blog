@@ -1,24 +1,24 @@
 from django.test import TestCase
 from datetime import datetime
 
-from ..models import  Post,Category
-from django.contrib.auth import get_user_model
-from ...accounts.models import User,Profile
+from ..models import  Post
+from accounts.models import User,Profile
 
 class TestPostModel(TestCase):
-    user = User.objects.create_user(email='test', password='12@12345$')
-    profile = Profile.objects.create(
-        user=user,
-        first_name='test_name',
-        last_name='test_last_name',
-        description='test_description',)
+    def setUp(self):
+        self.user = User.objects.create_user(email='test@test.com', password='12@12345$')
+        self.profile = Profile.objects.create(
+            user=self.user,
+            first_name='test_name',
+            last_name='test_last_name',
+            description='test_description',)
     def test_create_post_with_data(self):
         post = Post.objects.create(
-        author = profile,
+        author = self.profile,
         title='test',
         content='test',
-        description='test',
         status=True,
         published_date=datetime.now(),
         category=None)
-        self.assertEqual(post.title, 'test')
+        self.assertTrue(Post.objects.filter(pk=post.id).exists())
+        self.assertEquals(post.title, 'test')

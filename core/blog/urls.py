@@ -8,7 +8,7 @@ app_name = "blog"
 
 urlpatterns = [
     # path('cbv-index/', views.TemplateView.as_view(template_name="index.html", extra_context={"name": "Ali"})),
-    # path('cbv-index/', views.IndexView.as_view(), name='cbv-index'),
+    path('cbv-index/', views.IndexView.as_view(), name='index'),
     # path("go-to-maktabkhooneh", RedirectView.as_view(url='https://www.maktabkhooneh.org'), name="redirect-to-maktabkhooneh"),
     # path('go-to-index', RedirectView.as_view(pattern_name='blog:cbv-index'), name='redirect-to-index'),
     # path('go-to-maktabkhooneh/<int:pk>/', views.RedirectToMaktab.as_view(), name="redirect-to-maktabkhooneh"),

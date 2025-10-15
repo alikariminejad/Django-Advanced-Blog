@@ -29,3 +29,8 @@ for using flake8
 ```
 docker-compose exec backend sh -c "flake8 ."
 ```
+
+for testing
+```
+docker-compose exec backend sh -c "python manage.py test"
+```

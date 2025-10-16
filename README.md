@@ -34,3 +34,8 @@ for testing
 ```
 docker-compose exec backend sh -c "python manage.py test"
 ```
+
+for testing using pytest
+```
+docker-compose exec backend sh -c "pytest ."
+```

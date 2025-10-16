@@ -1,7 +1,11 @@
+from django.urls import reverse, resolve
+from rest_framework.test import APIClient
 import pytest
 
-
+@pytest.mark.django_db
 class TestPostApi:
     def test_get_post_response_200_status(self):
-        assert 1==0
-        assert 2==0
+        client = APIClient()
+        url = reverse("blog:api-v1:post-list")
+        response = client.get(url)
+        assert response.status_code == 200

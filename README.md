@@ -39,3 +39,8 @@ for testing using pytest
 ```
 docker-compose exec backend sh -c "pytest ."
 ```
+
+for running the custom insert_data command
+```
+docker-compose exec backend sh -c "python manage.py insert_data"
+```

@@ -44,3 +44,9 @@ for running the custom insert_data command
 ```
 docker-compose exec backend sh -c "python manage.py insert_data"
 ```
+
+for using redis cli
+```
+docker-compose exec -it redis sh
+redis-cli
+```

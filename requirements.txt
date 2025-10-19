@@ -28,3 +28,7 @@ Faker
 
 # load testing
 locust
+
+# background process and cache
+celery
+redis

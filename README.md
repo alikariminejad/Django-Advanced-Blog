@@ -50,3 +50,8 @@ for using redis cli
 docker-compose exec -it redis sh
 redis-cli
 ```
+
+for using celery
+```
+docker-compose exec backend sh -c "celery -A core worker --loglevel=info"
+```

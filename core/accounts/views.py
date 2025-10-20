@@ -1,12 +1,11 @@
 from django.http import HttpResponse, JsonResponse
 import time
+from django.views.decorators.cache import cache_page
 from django.core.cache import cache
 from .tasks import sendEmail
 import requests
 
-
+@cache_page(60)
 def test(request):
-    if cache.get("test_delay_api") is None:
-        response = requests.get("")
-        cache.set("test_delay_api", response.json(),60)
-    return JsonResponse(cache.get("test_delay_api"))
+    response = requests.get("")
+    return JsonResponse(response.json())

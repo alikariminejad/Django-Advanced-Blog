@@ -55,3 +55,13 @@ for using celery
 ```
 docker-compose exec backend sh -c "celery -A core worker --loglevel=info"
 ```
+
+for activating celery beat
+```
+docker-compose exec backend sh -c "celery -A core beat -l info"
+```
+
+another command for celery beat
+```
+docker-compose exec backend sh -c "celery -A core beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+```
